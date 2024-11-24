@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 project(abnet)
 
 #options
-option(ENABLE_TESTS "build tests" ON)
+option(ENABLE_TESTS "build tests" OFF)
 
 #gtest
 if(ENABLE_TESTS)
@@ -24,4 +24,6 @@ if(ENABLE_TESTS)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     FetchContent_MakeAvailable(googletest)
     add_subdirectory("tests")
+else()
+    message(FATAL_ERROR "Tests are disabled. Enable with -DENABLE_TESTS=ON.")
 endif()
