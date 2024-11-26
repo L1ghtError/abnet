@@ -18,6 +18,26 @@ TEST(DnsRequest, AsciiToBinaryV4) {
       << ERRMSG("Address conversion mismatch: expected ") << expected_binary << ", got " << addr_in.sin_addr.s_addr;
 }
 
+TEST(DnsRequest, AsciiToBinaryV4_2) {
+
+  const char *hostname = "255.123.8.1";
+  uint16_t port = 80;
+  abnet::addrinfo_type hints = {0};
+  abnet::addrinfo_type *res = nullptr;
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_socktype = SOCK_STREAM;
+  abnet::error_code ec;
+  abnet::socket_ops::getaddrinfo(hostname, NULL, hints, &res, ec);
+  ASSERT_EQ(ec.value(), 0) << "Expected failure for invalid hostname";
+
+  abnet::sockaddr_in4_type addr_in;
+  addr_in.sin_addr = reinterpret_cast<struct sockaddr_in *>(res->ai_addr)->sin_addr;
+
+  uint32_t expected_binary = abnet::socket_ops::host_to_network_long(0xFF7B0801);
+  ASSERT_EQ(addr_in.sin_addr.s_addr, expected_binary)
+      << ERRMSG("Address conversion mismatch: expected ") << expected_binary << ", got " << addr_in.sin_addr.s_addr;
+}
+
 TEST(DnsRequest, AsciiToBinaryV6) {
 
   const char addr[] = "2001:0db8:85a3:0000:0000:8a2e:0370:7334";
