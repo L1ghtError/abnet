@@ -1,7 +1,7 @@
 # abnet (ASIO-Based Networking Library)
 
 `abnet` is an [ASIO](https://github.com/chriskohlhoff/asio/tree/asio-1-32-0)-based networking library built with **NO** boost dependency. <br>
-Its primary goal is to provide a minimal, cross-platform BSD socket-like API.
+Its primary goal is to provide a minimal, cross-platform BSD-like socket API.
 
 ## Installation
 To start using this lib, you only need to include `abnet.hpp` header to your project.
@@ -12,16 +12,24 @@ Although `abnet` is simply a modified version of internal `ASIO` sockets, you ca
 ## TESTING
 To enable and run tests for abnet, follow these steps:
 
+* Prepare Project and build dir
+```bash
+$ git clone https://github.com/L1ghtError/abnet.git
+$ cd abnet
+$ mkdir build
+$ cd build
+```
 * Generate the tests by configuring the build with the following command:
 ```bash
-$ cmake -DENABLE_TESTS=ON
+$ cmake -DENABLE_TESTS=ON ..
 ```
 * Build the test suite using your preferred build tool:
 ```bash
-$ make  # or your platform's equivalent build command
+$ cmake --build .
 ```
 * Run the tests:
 ```bash
+$ cd ./tests
 $ ./tests  # Replace with the actual name of the generated test executable
 ```
 
