@@ -8,6 +8,7 @@ option(ENABLE_TESTS "build tests" OFF)
 #gtest
 if(ENABLE_TESTS)
     #includes
+    ENABLE_TESTING()
     include_directories("include")
     include_directories("tests")
 
